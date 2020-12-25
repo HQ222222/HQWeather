@@ -39,7 +39,7 @@ public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_PROVINCE = 0;
     public static final int LEVEL_CITY = 1;
     public static final int LEVEL_COUNTY = 2;
-    public static final String API_URL = "http://guolin.tech/api/china";
+    public static final String API_URL = " http://192.168.137.1:8080/china";
     public static final String TAG = "请求接口的返回值";
 
 
@@ -83,7 +83,7 @@ public class ChooseAreaFragment extends Fragment {
                     String weatherId = mCountyList.get(pos).getWeatherId();
                     if (getActivity() instanceof MainActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                        intent.putExtra("weather_id", weatherId);
+                        intent.putExtra("weatherid", weatherId);
                         startActivity(intent);
                         getActivity().finish();
                     } else if (getActivity() instanceof WeatherActivity) {
@@ -139,7 +139,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_CITY;
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
-            queryFromServer(API_URL+"/province/"+provinceCode, "city");
+            queryFromServer(API_URL+"/"+provinceCode, "city");
         }
 
     }
@@ -158,7 +158,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_COUNTY;
         } else {
             int cityCode = selectedCity.getCityCode();
-            queryFromServer(API_URL+"/city/"+cityCode, "county");
+            queryFromServer(API_URL+"/"+selectedProvince.getProvinceCode()+"/"+cityCode, "county");
         }
     }
     private void queryFromServer(String address, final String type) {
